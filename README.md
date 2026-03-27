@@ -8,6 +8,8 @@ Want to jump into the lab? Navigate to the [Part 0 Instructions](./instructions/
 
 ## About this Lab
 
+<img src="https://i.imgur.com/DN0NtiC.png" style="width: 75%; min-width: 350px;" alt="Screenshot of provided Docker Container printing welcome message for the Splunk Lab"></img>
+
 The Splunk Lab is designed to teach you how to use a SIEM (Security Information and Event Management) system to search, analyze, and investigate log data. You'll gain hands-on experience querying real datasets with Splunk's Search Processing Language (SPL), building dashboards, and applying your skills to a simulated security incident investigation.
 
 ### Learning Objectives
