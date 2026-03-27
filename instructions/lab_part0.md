@@ -50,6 +50,9 @@ If you can see the Splunk home screen, you are ready to [**proceed to Part 1**](
 > Keep your terminal open for the entire lab — closing it stops the container. Your work (dashboards, saved searches, and indexed data) **persists between sessions** via the named volume, so you can safely stop and restart without losing progress.
 
 > [!TIP]
+> If you see a warning about `FROM --platform flag should not use constant value "linux/amd64"` during the build, you can safely ignore it. This is intentional — Splunk Enterprise has no native arm64 package, so we pin to amd64 explicitly. It runs fine on Apple Silicon under Rosetta 2.
+
+> [!TIP]
 > If you have issues pulling the image, you can build it manually by cloning this repository and running:
 >
 > ```bash
