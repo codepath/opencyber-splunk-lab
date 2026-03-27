@@ -21,6 +21,9 @@ Lab Parts:
 
 ## Instructions
 
+> [!IMPORTANT]
+> The lab data is historical. Set your Splunk time range to **All Time** before running any search, or you will get 0 results. The time picker is in the top-right corner of the Search bar.
+
 ### Scenario
 
 PathCode Inc.'s security team has flagged unusual activity in the `WebServer01` authentication logs. As the on-call SOC analyst, your job is to investigate: characterize the attack, identify the threat actor, and determine whether any logins succeeded.
@@ -86,7 +89,7 @@ Now zoom in on the failed logins and rank the source IPs.
 - [ ] Run:
 
   ```SPL
-  index=main host="WebServer01" Message="Failed Password for" | stats count by IP | sort -count | head 10
+  index=main host="WebServer01" Message="Failed password for" | stats count by IP | sort -count | head 10
   ```
 
 **Make a note of the IP at the top of the list** — that's your primary suspect.
@@ -102,7 +105,7 @@ The `table` command displays specific fields as named columns — useful when yo
 - [ ] Run:
 
   ```SPL
-  index=main host="WebServer01" Message="Accepted Password for" | table _time IP
+  index=main host="WebServer01" Message="Accepted password for" | table _time IP
   ```
 
 > [!TIP]

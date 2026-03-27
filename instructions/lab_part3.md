@@ -50,6 +50,9 @@ There are two datasets to work with:
 
 Each event in this dataset represents a single title in the Netflix catalog. Relevant fields include `type`, `title`, `country`, `release_year`, `rating`, `duration`, `listed_in`, and `date_added`.
 
+> [!NOTE]
+> Field values in this dataset are **exact matches**. For example, `listed_in="Docuseries"` returns only titles cataloged exclusively under that genre — titles that also appear in other genres will have a different `listed_in` value. Use the **Interesting Fields** panel to browse the actual values before writing your search.
+
 <details>
   <summary>Questions (1 point each)</summary>
 
@@ -67,7 +70,7 @@ Each event in this dataset represents a single title in the Netflix catalog. Rel
 
   7. Which release year had the most movies rated G? (Not TV-G — movies only.)
 
-  8. What two TV-Y-7 rated shows were released in 2019 and added to Netflix on November 22, 2019?
+  8. What two TV-Y7 rated shows were released in 2019 and added to Netflix on November 22, 2019?
 
   9. Which year had the most TV shows *(not movies!)* from the United States?
 

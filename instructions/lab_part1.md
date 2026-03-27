@@ -86,6 +86,9 @@ You're now viewing events from the **Top Video Game Sales** dataset — global s
 
 Splunk parsed each row of the CSV into a searchable **event**. Let's dig in.
 
+> [!IMPORTANT]
+> Before exploring events, switch Splunk to **Verbose Mode**. Look for the mode selector to the left of the search bar (it defaults to "Smart") and change it to **Verbose**. Smart Mode optimizes performance by suppressing some field extraction — Verbose Mode shows everything. You'll want it on for all investigation work in this lab.
+
 - [ ] Click the arrow next to any event to expand it and see all of its fields.
 
 You should see fields like `Genre`, `Name`, `Publisher`, `Platform`, `Year_of_Release`, and more. These are all searchable.
@@ -197,16 +200,16 @@ This dataset contains authentication log entries from a Linux web server at Path
 
 - [ ] Locate the **Message** field in the Interesting Fields panel on the left. Click it to see the available values.
 
-- [ ] Add `Message="Failed Password for"` to filter for failed login attempts only:
+- [ ] Add `Message="Failed password for"` to filter for failed login attempts only:
 
   ```SPL
-  index=main host="WebServer01" Message="Failed Password for"
+  index=main host="WebServer01" Message="Failed password for"
   ```
 
 - [ ] Identify the top source IPs responsible for failed logins:
 
   ```SPL
-  index=main host="WebServer01" Message="Failed Password for" | stats count by IP | sort -count
+  index=main host="WebServer01" Message="Failed password for" | stats count by IP | sort -count
   ```
 
 - [ ] Click the **Visualization** tab and select **Bar Chart**.
