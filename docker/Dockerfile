@@ -25,12 +25,18 @@ RUN wget -qO /tmp/splunk.deb \
 RUN printf '[user_info]\nUSERNAME = admin\nPASSWORD = codepath\n' \
       > /opt/splunk/etc/system/local/user-seed.conf
 
-# 4. Copy lab-owned data files
+# 4. Ensure the lab sentinel is never baked into the image.
+#    Splunk's installer may leave files in /opt/splunk/var that get copied into
+#    fresh named volumes on first use — if the sentinel exists there, the
+#    first-run license activation and data indexing in the entrypoint would be silently skipped.
+RUN rm -f /opt/splunk/var/.lab-initialized
+
+# 5. Copy lab-owned data files
 #    webauth.csv and the four malware investigation CSVs live in cyb102-vm-setup
 #    for now and are downloaded below; they can move here once this lab owns them.
 COPY docker/files/ /opt/splunk-data/
 
-# 5. Download remaining data files from cyb102-vm-setup
+# 6. Download remaining data files from cyb102-vm-setup
 ARG DATA_REPO=https://raw.githubusercontent.com/codepath/cyb102-vm-setup/main/Files/unit5
 RUN wget -qO /opt/splunk-data/webauth.csv          "${DATA_REPO}/webauth.csv"          && \
     wget -qO /opt/splunk-data/webserver02.csv       "${DATA_REPO}/webserver02.csv"       && \

@@ -59,8 +59,26 @@ if [ ! -f "$INIT_SENTINEL" ]; then
     echo
     echo "Indexing lab data..."
 
-    /opt/splunk/bin/splunk edit licenser-groups -name "Free" -is_active "1" \
-        -auth 'admin:codepath' > /dev/null
+    # Retry license activation until the management API is ready after startup
+    echo -n "Configuring license"
+    for i in 1 2 3 4 5 6; do
+        if /opt/splunk/bin/splunk edit licenser-groups -name "Free" -is_active "1" \
+            -auth 'admin:codepath' > /dev/null 2>&1; then
+            break
+        fi
+        printf '.'
+        sleep 5
+    done
+    echo
+
+    # Restart to apply the license change, then wait for Splunk to come back
+    /opt/splunk/bin/splunk restart > /dev/null 2>&1
+    echo -n "Waiting for Splunk to restart"
+    until /opt/splunk/bin/splunk status 2>/dev/null | grep -q 'is running'; do
+        printf '.'
+        sleep 3
+    done
+    echo
 
     /opt/splunk/bin/splunk add index pathcode \
         -auth 'admin:codepath' > /dev/null
