@@ -51,7 +51,7 @@ There are two datasets to work with:
 Each event in this dataset represents a single title in the Netflix catalog. Relevant fields include `type`, `title`, `country`, `release_year`, `rating`, `duration`, `listed_in`, and `date_added`.
 
 > [!NOTE]
-> Field values in this dataset are **exact matches**. For example, `listed_in="Docuseries"` returns only titles cataloged exclusively under that genre — titles that also appear in other genres will have a different `listed_in` value. Use the **Interesting Fields** panel to browse the actual values before writing your search.
+> The questions in this section are intentionally written to ask about **exclusive** genre or category membership. When we ask "how many TV shows are in the Docuseries genre?", we mean titles cataloged *only* as Docuseries — not titles that appear in Docuseries alongside other genres. This matches how the data is structured: each title has a single `listed_in` value representing its full genre listing. Use the **Interesting Fields** panel to see the actual values before writing your search.
 
 <details>
   <summary>Questions (1 point each)</summary>
@@ -124,3 +124,14 @@ Search across all four with `index=pathcode`, or narrow to a specific host by ad
   - `| table` is useful for getting a clean view of the specific fields you care about.
 
 </details>
+
+---
+
+### Tips for Success
+
+- **Getting 0 results?** Check two things: make sure the time range is set to **All Time**, and switch the search mode from **Smart** to **Verbose**. Smart mode sometimes skips field extraction for exploratory searches.
+- **Netflix questions ask about exclusive membership.** When a question asks how many titles are in a genre, it means titles cataloged *only* under that genre — not titles that appear in it alongside others. This is intentional: the data stores each title's full genre listing as a single value, so a title listed as "Docuseries, Crime TV Shows" won't match a search for `listed_in="Docuseries"`. Use the **Interesting Fields** panel to see what the actual values look like before writing your filter.
+- **Not sure what fields exist?** Run a bare search like `index=main host=Netflix` and open the **Interesting Fields** panel on the left. Everything Splunk parsed from the data appears there.
+- **Malware questions are meant to be chained.** Each answer unlocks the next search — start with Q11 (the MD5 hash), find the IP, then use that IP to search other sources. Don't skip ahead.
+- **`| table` makes results readable.** Instead of scanning raw events, pipe to `| table field1 field2` to surface just what you need. Combine with `| dedup` if you're seeing repeated rows.
+- **Leverage AI for SPL syntax.** If you know what you want to find but can't remember the right command, ask an AI assistant to help you construct the query — just make sure you understand what each part does before running it.

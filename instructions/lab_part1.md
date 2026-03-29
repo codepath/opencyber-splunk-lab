@@ -82,6 +82,13 @@ You're now viewing events from the **Top Video Game Sales** dataset — global s
 
 🎯 **Checkpoint 2**: You should see a list of events from the SalesData host.
 
+<details>
+<summary>✅ Check your result</summary>
+
+You should see **16,719 total events** in the search results.
+
+</details>
+
 ### Step 2: Exploring the Data
 
 Splunk parsed each row of the CSV into a searchable **event**. Let's dig in.
@@ -155,6 +162,21 @@ Browsing individual events is useful, but the real power of Splunk comes from **
 
 🎯 **Checkpoint 4**: You should have a pie chart showing the top 5 gaming platforms by title count.
 
+<details>
+<summary>✅ Check your result</summary>
+
+Your top 5 platforms should be:
+
+| Platform | Count |
+|----------|-------|
+| PS2 | 2,161 |
+| DS | 2,152 |
+| PS3 | 1,331 |
+| Wii | 1,320 |
+| X360 | 1,262 |
+
+</details>
+
 ### Step 4: Dashboards
 
 Real-world searches can involve dozens of fields and piped commands — not something you want to rebuild from scratch every day. **Dashboards** let you collect multiple visualizations into a single view, making it easy to monitor what matters at a glance.
@@ -217,5 +239,27 @@ This dataset contains authentication log entries from a Linux web server at Path
 - [ ] Click **Save As** → **Report**, title it **"Top 10 Source IPs with Failed Login Attempts"**, and click **Save**.
 
 🎯 **Checkpoint 6**: You should have a bar chart saved as a report, showing the top source IPs for failed login attempts against WebServer01.
+
+<details>
+<summary>✅ Check your result</summary>
+
+| IP | Failed login count |
+|----|--------------------|
+| 1.3.3.7 | 38 |
+| 15.16.17.18 | 9 |
+| 7.8.9.10 | 3 |
+| 192.168.1.104 | 2 |
+| 1.2.3.4 | 1 |
+| 10.11.12.13 | 1 |
+| 192.168.1.102 | 1 |
+| 192.168.1.106 | 1 |
+| 192.168.1.107 | 1 |
+| 2.3.4.5 | 1 |
+| 3.4.5.6 | 1 |
+| 5.4.3.2 | 1 |
+
+One IP accounts for more failed attempts than all others combined. Keep it in mind — you'll investigate it in Part 2.
+
+</details>
 
 You've completed Part 1! In [Part 2](./lab_part2.md), you'll use these skills — plus two new SPL commands — to investigate a suspected breach of this same server.

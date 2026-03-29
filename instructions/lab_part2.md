@@ -50,6 +50,13 @@ Before investigating, orient yourself with the data.
 
 🎯 **Checkpoint 1**: You should see events from WebServer01 and have a sense of the available fields.
 
+<details>
+<summary>✅ Check your result</summary>
+
+The dataset contains **98 total events**. The two fields you'll use most are `Message` (the event type) and `IP` (the source IP address).
+
+</details>
+
 ### Step 2: Map the Attack Timeline
 
 Before asking *who* attacked, ask *when*. Understanding the timeline lets you scope the incident and spot when activity spiked.
@@ -68,6 +75,13 @@ Can you spot any spikes in activity? Those moments are likely when the attack in
 
 🎯 **Checkpoint 2**: You should see a line chart with at least one visible spike in activity.
 
+<details>
+<summary>✅ Check your result</summary>
+
+You should see a line chart with activity concentrated in a short time window — not spread evenly over days or weeks. That narrow cluster is the attack window. If your chart looks flat or empty, make sure your time range is set to **All Time**.
+
+</details>
+
 ### Step 3: Break Down the Event Types
 
 Not every event in an auth log is suspicious. Before narrowing in, get the full picture.
@@ -82,6 +96,18 @@ What fraction of total events are failed login attempts? What other event types 
 
 🎯 **Checkpoint 3**: You should see a breakdown of event types and their counts.
 
+<details>
+<summary>✅ Check your result</summary>
+
+| Message | Count |
+|---------|-------|
+| Accepted password for | 38 |
+| Failed password for | 60 |
+
+60 of the 98 events are failed login attempts — over 60% of all activity on this server.
+
+</details>
+
 ### Step 4: Identify the Top Attacking IPs
 
 Now zoom in on the failed logins and rank the source IPs.
@@ -95,6 +121,22 @@ Now zoom in on the failed logins and rank the source IPs.
 **Make a note of the IP at the top of the list** — that's your primary suspect.
 
 🎯 **Checkpoint 4**: You should have a ranked list of IPs generating the most failed login attempts.
+
+<details>
+<summary>✅ Check your result</summary>
+
+The top IPs by failed login count:
+
+| IP | Count |
+|----|-------|
+| 1.3.3.7 | 38 |
+| 15.16.17.18 | 9 |
+| 7.8.9.10 | 3 |
+| (9 more IPs, 1–2 each) | |
+
+**Your primary suspect is `1.3.3.7`** — it accounts for 38 of the 60 failed attempts, more than all other IPs combined.
+
+</details>
 
 ### Step 5: Check for Successful Logins
 
@@ -115,6 +157,13 @@ Take note of any IPs that appear here.
 
 🎯 **Checkpoint 5**: You should be able to see whether any logins succeeded, and from which IPs.
 
+<details>
+<summary>✅ Check your result</summary>
+
+You should see **38 successful logins** from a range of IP addresses. The key observation: `1.3.3.7` — your primary suspect from Step 4 — does not appear here.
+
+</details>
+
 ### Step 6: Profile Your Suspect
 
 Cross-reference your findings: did your primary suspect from Step 4 appear in the successful logins from Step 5?
@@ -128,6 +177,19 @@ Cross-reference your findings: did your primary suspect from Step 4 appear in th
 This shows the complete story of what that IP did on the server — every event type it generated, and how many times.
 
 🎯 **Checkpoint 6**: You should be able to answer: did the top attacking IP successfully log in to WebServer01?
+
+<details>
+<summary>✅ Check your result</summary>
+
+For `IP="1.3.3.7"`:
+
+| Message | Count |
+|---------|-------|
+| Failed password for | 38 |
+
+**`1.3.3.7` never successfully logged in.** All 38 events are failed attempts — the brute-force attack was blocked.
+
+</details>
 
 ### Step 7: Build Your Findings Dashboard
 
