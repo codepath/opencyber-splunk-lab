@@ -33,7 +33,7 @@ Lab Parts:
 - [ ] Run the lab container with:
 
   ```bash
-  docker run --rm -it -p 8000:8000 -v splunk-lab-data:/opt/splunk/var ghcr.io/codepath/opencyber-splunk-lab:latest
+  docker run --rm -it -p 8000:8000 -v splunk-lab-data:/opt/splunk/var --platform linux/amd64 ghcr.io/codepath/opencyber-splunk-lab:latest
   ```
 
 - [ ] Watch your terminal. **On first start**, Splunk initializes and indexes the lab data — this takes about **90 seconds**. You'll see a "Splunk is ready!" message when it's done. Subsequent starts are faster (~30 seconds).
@@ -58,6 +58,6 @@ If you can see the Splunk home screen, you are ready to [**proceed to Part 1**](
 > ```bash
 > git clone https://github.com/codepath/opencyber-splunk-lab.git
 > cd opencyber-splunk-lab
-> docker build -t opencyber-splunk-lab:local -f docker/Dockerfile .
-> docker run --rm -it -p 8000:8000 -v splunk-lab-data:/opt/splunk/var opencyber-splunk-lab:local
+> docker build --platform linux/amd64 -t opencyber-splunk-lab:local -f docker/Dockerfile .
+> docker run --rm -it -p 8000:8000 -v splunk-lab-data:/opt/splunk/var --platform linux/amd64 opencyber-splunk-lab:local
 > ```
