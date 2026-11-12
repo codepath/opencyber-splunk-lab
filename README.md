@@ -46,10 +46,10 @@ The Docker image includes:
 ### Running the Lab
 
 ```bash
-docker run --rm -it -p 8000:8000 -v splunk-lab-data:/opt/splunk/var ghcr.io/codepath/opencyber-splunk-lab:latest
+docker run --rm -it -p 8000:8000 -v splunk-lab-data:/opt/splunk/var -v splunk-lab-users:/opt/splunk/etc/users -v splunk-lab-search:/opt/splunk/etc/apps/search/local ghcr.io/codepath/opencyber-splunk-lab:latest
 ```
 
-> **Note:** The named volume (`splunk-lab-data`) persists your indexed data and dashboards between sessions. Your work is safe if you stop and restart the container.
+> **Note:** The named volumes save your work between sessions. `splunk-lab-data` holds the indexed lab data. `splunk-lab-users` and `splunk-lab-search` hold your saved searches, reports, and dashboards. Your work is safe if you stop the container and start it again with this same command.
 
 ## License
 

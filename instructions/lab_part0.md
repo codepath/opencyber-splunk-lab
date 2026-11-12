@@ -33,7 +33,7 @@ Lab Parts:
 - [ ] Run the lab container with:
 
   ```bash
-  docker run --rm -it -p 8000:8000 -v splunk-lab-data:/opt/splunk/var --platform linux/amd64 ghcr.io/codepath/opencyber-splunk-lab:latest
+  docker run --rm -it -p 8000:8000 -v splunk-lab-data:/opt/splunk/var -v splunk-lab-users:/opt/splunk/etc/users -v splunk-lab-search:/opt/splunk/etc/apps/search/local --platform linux/amd64 ghcr.io/codepath/opencyber-splunk-lab:latest
   ```
 
 - [ ] Watch your terminal. **On first start**, Splunk initializes and indexes the lab data — this takes about **90 seconds**. You'll see a "Splunk is ready!" message when it's done. Subsequent starts are faster (~30 seconds).
@@ -47,7 +47,14 @@ Lab Parts:
 If you can see the Splunk home screen, you are ready to [**proceed to Part 1**](./lab_part1.md).
 
 > [!IMPORTANT]
-> Keep your terminal open for the entire lab — closing it stops the container. Your work (dashboards, saved searches, and indexed data) **persists between sessions** via the named volume, so you can safely stop and restart without losing progress.
+> Keep your terminal open for the entire lab — closing it stops the container. Your work (dashboards, saved searches, and indexed data) **persists between sessions** in the named volumes, so you can safely stop and restart without losing progress. Always start the lab with the command above.
+
+> [!TIP]
+> If `index=pathcode` returns no results, or your dashboards are missing after a restart, your lab was first started with an older command. To reset the lab, stop the container, delete the lab volumes, and run the command above again. This also deletes any dashboards and reports you saved.
+> ```bash
+> docker volume rm splunk-lab-data splunk-lab-users splunk-lab-search
+> ```
+> If Docker says a volume does not exist, you can ignore that message.
 
 > [!TIP]
 > If you see a warning about `FROM --platform flag should not use constant value "linux/amd64"` during the build, you can safely ignore it. This is intentional — Splunk Enterprise has no native arm64 package, so we pin to amd64 explicitly. It runs fine on Apple Silicon under Rosetta 2.
@@ -59,5 +66,5 @@ If you can see the Splunk home screen, you are ready to [**proceed to Part 1**](
 > git clone https://github.com/codepath/opencyber-splunk-lab.git
 > cd opencyber-splunk-lab
 > docker build --platform linux/amd64 -t opencyber-splunk-lab:local -f docker/Dockerfile .
-> docker run --rm -it -p 8000:8000 -v splunk-lab-data:/opt/splunk/var --platform linux/amd64 opencyber-splunk-lab:local
+> docker run --rm -it -p 8000:8000 -v splunk-lab-data:/opt/splunk/var -v splunk-lab-users:/opt/splunk/etc/users -v splunk-lab-search:/opt/splunk/etc/apps/search/local --platform linux/amd64 opencyber-splunk-lab:local
 > ```
